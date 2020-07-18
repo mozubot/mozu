@@ -86,6 +86,7 @@ switch(msg){
     
     if(save[sender]["강수"] <= 0){
       replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가) 펑-💥하고 터졌습니다\n\n[   "+save[sender]["무기"]+"  파괴..   ]"); 
+      replier.reply("기본 무기인 🍃지푸라기가 지급됩니다");
       save[sender]["강능"] = 1;
       save[sender]["강수"] = 1;
      }
