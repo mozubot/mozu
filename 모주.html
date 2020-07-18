@@ -11,10 +11,16 @@ switch(msg){
     break;
     
     case '모주야':    
-    if(sender == "bjy0212(닉넴421)"){
-    replier.reply("우리의 스승님, "+sender+" !!!🤓");
-    }else if(sender == "하순모주"){
+    if(sender == "ㅈㅇ"){
+    replier.reply("༼  •᷅  ͟ʖ •᷅   ༽");
+    java.lang.Thread.sleep(1500);
+    replier.reply("누구세여ㅇㅅㅇ");
+    }else if(sender == "예린"){
     replier.reply("네, "+sender+" 주인님. 절 부르셨나요?🤗");
+    }else if(sender == "림"){
+    replier.reply("오오 고래다!!");
+    java.lang.Thread.sleep(1500);
+    replier.reply("고~~~~~뤠?");
     }else{
     replier.reply("반가워요, "+sender+" 님!☺️");
     }
@@ -75,7 +81,7 @@ switch(msg){
     
     else if(c <= 77){
         save[sender]["강수"] = Math.floor(save[sender]["강수"]/2); 
-        replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n💫저주에 걸렸습니다...\n\n[   🧨    "+save[sender]["강화수치"]+"   ]");
+        replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n💫저주에 걸렸습니다...\n\n[   🧨    "+save[sender]["강수"]+"   ]");
     }
 
     else{
@@ -178,8 +184,7 @@ switch(msg){
       if(save[sender]["bell"] >= 1000 ){
         save[sender]["bell"] = save[sender]["bell"] - 1000;
         save[sender]["무기"] = "🌿나뭇가지";
-        let d = save[sender]["bell"]-1000
-        replier.reply(sender+" 님이 🌿나뭇가지를 구매하셨습니다\n\n[   🔔 "+d+"    - 1000   ]");
+        replier.reply(sender+" 님이 🌿나뭇가지를 구매하셨습니다\n\n[   🔔 "+save[sender]["bell"]+"    - 1000   ]");
       }
     }
     break;
