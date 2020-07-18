@@ -1,8 +1,8 @@
 <pre>
 check = true;
+let blank = "\u200b".repeat(500);
 const save = {};
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
-try{
 switch(msg){
 	
 	
@@ -25,26 +25,29 @@ switch(msg){
       replier.reply(sender+" 님은 이미 회원가입을 하셨습니다.");
     }
     if(!save[sender]){
-      save[sender] = {"bell" : 100, "health" : 10, "a": 1, "b": 1, "무기": 0};
+      save[sender] = {"bell" : 100, "health" : 10, "강수": 1, "강능": 1,
+                      "무기" : "🍃지푸라기"
+                      
+                      };
       replier.reply("회원가입 완료");
     }
     break;
  
     case '정보':
     if(!save[sender]){
-      replier.reply(sender+" 님, 회원가입을 먼저 해주세요.");
+      replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
     }
     if(save[sender]){
-    replier.reply(sender+" 님의 정보입니다\n\n❤ 체력: "+save[sender]["health"]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡무기: "+save[sender]["무기"]);
+    replier.reply(sender+" 님의 정보입니다\n\n❤ 체력: "+save[sender]["health"]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡 무기: "+save[sender]["무기"]+"\n🧨 무기 강화수치: "+save[sender]["강수"]);
     }
     break;
     
     case '강화':
     if(!save[sender]){
-     replier.reply(sender+" 님, 회원가입을 먼저 해주세요.");
+     replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
     }
     
-  if(save[sender]){
+    if(save[sender]){
     if(check){
     if(save[sender]["bell"] < 50 ){
       replier.reply("벨이 부족합니다");
@@ -52,67 +55,155 @@ switch(msg){
     }
     if(save[sender]["bell"] >= 50 ){
     save[sender]["bell"] = save[sender]["bell"] - 50;
-	  replier.reply("[   🔔    - 50   ]\n\n"+sender+" 님이 강화를 시도하는 중 입니다\n\n[   소요시간:  3초   ]");
+	   replier.reply("[   🔔    - 50   ]\n\n"+sender+" 님이 강화를 시도하는 중 입니다\n\n[   소요시간:  3초   ]");
       check = false;
-	  java.lang.Thread.sleep(3000);
+	   java.lang.Thread.sleep(3000);
       check = true;
     
     let c = Math.floor(Math.random() * 100);
     if(c <= 65){
-      save[sender]["a"] = save[sender]["a"] + save[sender]["b"];
-    let d = save[sender]["a"] - save[sender]["b"];
-        replier.reply(sender+" 님의 요술봉이\n✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+save[sender]["b"]+"   ]");
+      save[sender]["강수"] = save[sender]["강수"] + save[sender]["강능"];
+    let d = save[sender]["강수"] - save[sender]["강능"];
+        replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+save[sender]["강능"]+"   ]");
     }
     
       else if(c <= 73){
-      save[sender]["a"] = save[sender]["a"] + 3*save[sender]["b"];
-    let d = save[sender]["a"] - 3*save[sender]["b"];
-        replier.reply("[크리티컬]\n"+sender+" 님의 요술봉이\n ✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+3*save[sender]["b"]+"   ]");
+      save[sender]["강수"] = save[sender]["강수"] + 3*save[sender]["강능"];
+    let d = save[sender]["강수"] - 3*save[sender]["강능"];
+        replier.reply("[크리티컬]\n"+sender+" 님의 "+save[sender]["무기"]+"이(가)\n ✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+3*save[sender]["강능"]+"   ]");
     }
     
     else if(c <= 77){
-        save[sender]["a"] = Math.floor(save[sender]["a"]/2); 
-        replier.reply(sender+" 님의 요술봉이\n💫저주에 걸렸습니다...\n\n[   🧨    "+save[sender]["a"]+"   ]");
+        save[sender]["강수"] = Math.floor(save[sender]["강수"]/2); 
+        replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n💫저주에 걸렸습니다...\n\n[   🧨    "+save[sender]["강화수치"]+"   ]");
     }
 
     else{
-        save[sender]["a"] = save[sender]["a"] - 2*save[sender]["b"];
-    let d = save[sender]["a"] + 2*save[sender]["b"];
-          replier.reply(sender+" 님의 요술봉이\n😢강화에 실패하였습니다..\n\n[   🧨  "+d+"    - "+2*save[sender]["b"]+"   ]");
+        save[sender]["강수"] = save[sender]["강수"] - 2*save[sender]["강능"];
+    let d = save[sender]["강수"] + 2*save[sender]["강능"];
+          replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n😢강화에 실패하였습니다..\n\n[   🧨  "+d+"    - "+2*save[sender]["강능"]+"   ]");
     }
     
-    if(save[sender]["a"] <= 0){
-      replier.reply(sender+" 님의 요술봉이 펑-💥하고 터졌습니다.\n\n[   🧨     1   ]"); 
-      save[sender]["b"] = 1;
-      save[sender]["a"] = 1;
+    if(save[sender]["강수"] <= 0){
+      replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가) 펑-💥하고 터졌습니다\n\n[   "+save[sender]["무기"]+"  파괴..   ]"); 
+      save[sender]["강능"] = 1;
+      save[sender]["강수"] = 1;
      }
    }
    }
    }
    break;
 
-  case '슬라임':
-    if(!save[sender]){
-     replier.reply(sender+" 님, 회원가입을 먼저 해주세요.");
-    }
+   case '맵':
+      if(!save[sender]){
+        replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
+      }
+      if(save[sender]){
+        replier.reply(sender+" 님\n모주RPG의 세계에 오신 것을 환영합니다"+blank+"\n\n조건에 맞는 몬스터를 사냥해서 보상을 얻어보세요!\n\n슬라임\n\n[사냥조건] 🍃지푸라기\n[일반보상] 🔔  10\n[크리티컬보상] 🔔  50\n\n거대슬라임\n\n\n[사냥조건] 🌿나뭇가지\n[일반보상] 🔔  40\n[크리티컬보상] 🔔  200\n\n\n솜사탕\n\n[사냥조건] 🥢다듬은 나무젓가락\n[일반보상] 🔔  100\n[크리티컬보상] 🔔  500\n\n\n물고기\n\n[사냥조건] 🎋대나무조각\n[일반보상] 🔔  200\n[크리티컬보상] 🔔  1000\n\n\n팬더\n\n[사냥조건] 🎋대나무조각상\n[일반보상] 🔔  400\n[크리티컬보상] 🔔  2000\n\n\n");
+      }
+   break;
+
+   case '슬라임':
+     if(!save[sender]){
+       replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
+     }
     
-    if(save[sender]){
-    let c = Math.floor(Math.random() * 100);
-    if(c <= 80){
-    save[sender]["bell"] = save[sender]["bell"] + 10;
-    let d = save[sender]["bell"]-10
-      replier.reply("슬라임을 "+sender+" 님의 요술봉으로 콕콕 찔러보았습니다.\n\n[   🔔 "+d+"    + 10   ]");
-    }else{
-    save[sender]["bell"] = save[sender]["bell"] + 20;
-    let d = save[sender]["bell"]-20
-      replier.reply("[크리티컬]\n슬라임을 "+sender+" 님의 요술봉으로 푹푹 찔러버렸습니다.\n\n[   🔔 "+d+"    + 20   ]");
+   if(save[sender]){
+   if(save[sender]["무기"] == "🍃지푸라기" ||
+      save[sender]["무기"] == "🌿나뭇가지" ||
+      save[sender]["무기"] == "🥢다듬은 나무젓가락" ||
+      save[sender]["무기"] == "🎋대나무조각" ||
+      save[sender]["무기"] == "🎍대나무조각상"){
+     let c = Math.floor(Math.random() * 100)
+   if(c <= 90){
+     save[sender]["bell"] = save[sender]["bell"] + 10;
+     let d = save[sender]["bell"]-10
+     replier.reply("슬라임을 "+sender+" 님의 "+save[sender]["무기"]+"(으)로 간지럽혔습니다\n\n[   🔔 "+d+"    + 10   ]");
+   }else{
+     save[sender]["bell"] = save[sender]["bell"] + 50;
+     let d = save[sender]["bell"]-50
+     replier.reply("[크리티컬]\n슬라임을 "+sender+" 님의 "+save[sender]["무기"]+"(으)로 간지럽히다 상처를 내었습니다!\n\n[   🔔 "+d+"    + 50   ]");
+   }
+   }
+   }
+   break;
+   
+   case '거대슬라임':
+     if(!save[sender]){
+       replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
+     }
+    
+   if(save[sender]){
+   if( save[sender]["무기"] == "🌿나뭇가지" ||
+      save[sender]["무기"] == "🥢다듬은 나무젓가락" ||
+      save[sender]["무기"] == "🎋대나무조각" ||
+      save[sender]["무기"] == "🎍대나무조각상"){
+     let c = Math.floor(Math.random() * 100)
+   if(c <= 90){
+     save[sender]["bell"] = save[sender]["bell"] + 40;
+     let d = save[sender]["bell"]-20
+     replier.reply("거대슬라임을 "+sender+" 님의 "+save[sender]["무기"]+"(으)로 콕콕 찔러보았습니다\n\n[   🔔 "+d+"    + 40   ]");
+   }else{
+     save[sender]["bell"] = save[sender]["bell"] + 200;
+     let d = save[sender]["bell"]-100
+     replier.reply("[크리티컬]\n거대슬라임을 "+sender+" 님의 "+save[sender]["무기"]+"(으)로 푹푹 찔러버렸습니다!\n\n[   🔔 "+d+"    + 200   ]");
+   }
+   }
+   }
+   break;
+
+    case '무기상점':
+      if(!save[sender]){
+        replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
+      }
+      if(save[sender]){
+        replier.reply(sender+" 님 어서오십셔~\n없는 것빼고 다 있는 무기상점입니다~!"+blank+"\n\n[(무기이름) 구매]를 쳐서 구매할 수 있답니다\n조건에 맞는 무기를 잘 골라보세요~\n\n🌿나뭇가지\n\n[구매조건] 🧨  10\n[가격] 🔔  1000\n\n\n🥢다듬은 나무젓가락\n\n[구매조건] 🧨  30\n[가격] 🔔  10000\n\n\n🎋대나무조각\n\n[구매조건] 🧨  70\n[가격] 🔔  25000\n\n\nn\n🎍대나무조각상\n\n[구매조건] 🧨  150\n[가격] 🔔  60000\n\n\n");
+      }
+   break;
+   
+   case '나뭇가지 구매':
+      if(!save[sender]){
+        replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
+      }
+   if(save[sender]){
+      if(save[sender]["bell"] < 1000 ){
+        replier.reply("벨이 부족합니다\n[맵]을 쳐서 사냥을 해보세요");
+      return;
+      }
+      if(save[sender]["강수"] < 10 ){
+        replier.reply("무기 강화수치가 부족합니다\n[강화]를 쳐서 강화를 해보세요");
+      return;
+      }
+      if(save[sender]["bell"] >= 1000 ){
+        save[sender]["bell"] = save[sender]["bell"] - 1000;
+        save[sender]["무기"] = "🌿나뭇가지";
+        let d = save[sender]["bell"]-1000
+        replier.reply(sender+" 님이 🌿나뭇가지를 구매하셨습니다\n\n[   🔔 "+d+"    - 1000   ]");
+      }
     }
-  break;
+    break;
+    
+    case '다듬은 나무젓가락 구매':
+     if(!save[sender]){
+        replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
+      }
+     if(save[sender]){
+      if(save[sender]["bell"] < 10000 ){
+        replier.reply("벨이 부족합니다\n[맵]을 쳐서 사냥을 해보세요");
+      return;
+      }
+      if(save[sender]["강수"] < 30 ){
+        replier.reply("무기 강화수치가 부족합니다\n[강화]를 쳐서 강화를 해보세요");
+      return;
+      }
+      if(save[sender]["bell"] >= 10000 ){
+        save[sender]["bell"] = save[sender]["bell"] - 10000;
+        save[sender]["무기"] = "🥢다듬은 나무젓가락";
+        let d = save[sender]["bell"]-10000
+        replier.reply(sender+" 님이 🥢다듬은 나뭇가지를 구매하셨습니다\n\n[   🔔 "+d+"    - 10000   ]");
+      }
+     }
+     break;
 }
-}
-    } catch(e) {
-        Api.replyRoom("모주봇", e);
-        Api.off("모주");
-    }
 }
 </pre>
