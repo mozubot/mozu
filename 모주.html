@@ -2,6 +2,7 @@
 check = true;
 let blank = "\u200b".repeat(500);
 const save = {};
+undefined = "없음";
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
 switch(msg){
 	
@@ -58,7 +59,7 @@ switch(msg){
     }
     if(!save[sender]){
       save[sender] = {"bell" : 100, "health" : 10, "강수": 1, "강능": 1,
-                      "무기" : "🍃지푸라기"
+                      "무기" : undefined
                       
                       };
       replier.reply("회원가입 완료");
@@ -118,9 +119,9 @@ switch(msg){
     
     if(save[sender]["강수"] <= 0){
       replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가) 펑-💥하고 터졌습니다\n\n[   "+save[sender]["무기"]+"  파괴..   ]"); 
-      replier.reply("기본 무기인 🍃지푸라기가 지급됩니다");
       save[sender]["강능"] = 1;
       save[sender]["강수"] = 1;
+      save[sender]["무기"] = undefined;
      }
    }
    }
