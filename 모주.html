@@ -58,7 +58,7 @@ switch(msg){
     }
     if(!save[sender]){
       let undefined = "없음"
-      save[sender] = {"bell" : 10000000, "health" : 10, "강수": 1, "강능": 1,
+      save[sender] = {"bell" : 100000, "health" : 10, "강수": 1000, "강능": 1000,
                       "무기" : undefined
                       
                       };
@@ -94,19 +94,19 @@ switch(msg){
       check = true;
     
     let c = Math.floor(Math.random() * 100);
-    if(c <= 0){
+    if(c <= 65){
       save[sender]["강수"] = save[sender]["강수"] + save[sender]["강능"];
     let d = save[sender]["강수"] - save[sender]["강능"];
         replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+save[sender]["강능"]+"   ]");
     }
     
-      else if(c <= 0){
+      else if(c <= 73){
       save[sender]["강수"] = save[sender]["강수"] + 3*save[sender]["강능"];
     let d = save[sender]["강수"] - 3*save[sender]["강능"];
         replier.reply("[크리티컬]\n"+sender+" 님의 "+save[sender]["무기"]+"이(가)\n ✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+3*save[sender]["강능"]+"   ]");
     }
     
-    else if(c <= 0){
+    else if(c <= 77){
         save[sender]["강수"] = Math.floor(save[sender]["강수"]/2); 
         replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n💫저주에 걸렸습니다...\n\n[   🧨    "+save[sender]["강수"]+"   ]");
     }
@@ -121,6 +121,7 @@ switch(msg){
       replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가) 펑-💥하고 터졌습니다\n\n[   "+save[sender]["무기"]+"  파괴..   ]"); 
       save[sender]["강능"] = 1;
       save[sender]["강수"] = 1;
+      let undefined = "없음"
       save[sender]["무기"] = undefined;
      }
    }
