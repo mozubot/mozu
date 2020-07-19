@@ -2,7 +2,6 @@
 check = true;
 let blank = "\u200b".repeat(500);
 const save = {};
-let undefined = "없음"
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
 switch(msg){
 	
@@ -58,6 +57,7 @@ switch(msg){
       replier.reply(sender+" 님은 이미 회원가입을 하셨습니다.");
     }
     if(!save[sender]){
+      let undefined = "없음"
       save[sender] = {"bell" : 100, "health" : 10, "강수": 1, "강능": 1,
                       "무기" : undefined
                       
