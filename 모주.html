@@ -94,19 +94,19 @@ switch(msg){
       check = true;
     
     let c = Math.floor(Math.random() * 100);
-    if(c <= 65){
+    if(c <= 10){
       save[sender]["강수"] = save[sender]["강수"] + save[sender]["강능"];
     let d = save[sender]["강수"] - save[sender]["강능"];
         replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+save[sender]["강능"]+"   ]");
     }
     
-      else if(c <= 73){
+      else if(c <= 10){
       save[sender]["강수"] = save[sender]["강수"] + 3*save[sender]["강능"];
     let d = save[sender]["강수"] - 3*save[sender]["강능"];
         replier.reply("[크리티컬]\n"+sender+" 님의 "+save[sender]["무기"]+"이(가)\n ✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+3*save[sender]["강능"]+"   ]");
     }
     
-    else if(c <= 77){
+    else if(c <= 10){
         save[sender]["강수"] = Math.floor(save[sender]["강수"]/2); 
         replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n💫저주에 걸렸습니다...\n\n[   🧨    "+save[sender]["강수"]+"   ]");
     }
