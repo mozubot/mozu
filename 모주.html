@@ -6,7 +6,9 @@ function response( room, msg, sender, isGroupChat, replier, imageDB ) {
 switch(msg){
 	
 	
-    case '네임':    
+    case '네임':
+    if(check){
+    check = false;
     replier.reply("은 B임??");
     java.lang.Thread.sleep(3000);
     replier.reply("설마.. 이해 못했니?");
@@ -14,17 +16,25 @@ switch(msg){
     replier.reply("비임이냐구 바부야!🤦‍♀️");
     java.lang.Thread.sleep(500);
     replier.reply("ㅁ...미,.ㅁ미안🙄");
+    check = true;
+    }
     break;
     
-    case '고래':    
+    case '고래':
+    if(check){
+    check = false;
     replier.reply("는 흰수염!!🎅");
     java.lang.Thread.sleep(750);
     replier.reply("헤헿🐳🐳");
     java.lang.Thread.sleep(2500);
     replier.reply("..뀨");
+    check = true;
+    }
     break;
     
-    case '모주야':    
+    case '모주야':
+    if(check){
+    check = false;
     if(sender == "ㅈㅇ"){
     replier.reply("༼  •᷅  ͟ʖ •᷅   ༽...");
     java.lang.Thread.sleep(1500);
@@ -37,6 +47,8 @@ switch(msg){
     replier.reply("고~~~~~뤠?");
     }else{
     replier.reply("반가워요, "+sender+" 님!☺️");
+    }
+    check = true;
     }
     break;
   
