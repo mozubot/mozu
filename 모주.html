@@ -69,7 +69,6 @@ switch(msg){
       replier.reply(sender+" 님은 이미 회원가입을 하셨습니다.");
     }
     if(!save[sender]){
-      let undefined = "없음"
       save[sender] = {"bell" : 100, "health" : 10, "강수": 1, "강능": 1
                       
                       };
@@ -139,8 +138,7 @@ switch(msg){
       replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가) 펑-💥하고 터졌습니다\n\n[   "+save[sender]["무기"]+"  파괴..   ]"); 
       save[sender]["강능"] = 1;
       save[sender]["강수"] = 1;
-      let undefined = "없음"
-      save[sender]["무기"] = undefined;
+      save[sender]["무기"] = save[sender]["무기"] = (save[sender]["무기"] ? save[sender]["무기"] : "없음" );
      }
    }
    }
