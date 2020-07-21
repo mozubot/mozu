@@ -68,6 +68,7 @@ switch(msg){
  
     case '정보':
     FileStream.write("/sdcard/RPG.json",save);
+    JSON.parse(FileStream.read("/sdcard/RPG.json"));
     if(!save[sender]){
       replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
     }
