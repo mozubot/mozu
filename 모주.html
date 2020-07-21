@@ -1,11 +1,16 @@
 <pre>
 check = true;
 let blank = "\u200b".repeat(500);
-const save = {};
+
+if( !FileStream.read( '/sdcard/RPG.json' ) ) {
+	FileStream.write( '/sdcard/RPG.json', '{}' );
+}
+const save = JSON.stringify( FileStream.read( '/sdcard/RPG.json' ) );
+
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
-switch(msg){ 
+switch(msg){
 
-
+	
     case '네임':
     if(check){
     check = false;
@@ -63,12 +68,10 @@ switch(msg){
                       
                       };
       replier.reply("회원가입 완료");
-    }
+    } 
     break;
  
     case '정보':
-    FileStream.write("/sdcard/RPG.json",JSON.stringify(save));
-    JSON.parse(FileStream.read("/sdcard/RPG.json"));
     if(!save[sender]){
       replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
     }
