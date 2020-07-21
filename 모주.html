@@ -4,8 +4,8 @@ let blank = "\u200b".repeat(500);
 const save = {};
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
 switch(msg){
-	
 
+	
     case '네임':
     if(check){
     check = false;
@@ -62,6 +62,7 @@ switch(msg){
                       "무기" : undefined
                       
                       };
+    FileStream.write("/sdcard/RPG.json",save);
       replier.reply("회원가입 완료");
     }
     break;
