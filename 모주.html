@@ -75,7 +75,7 @@ switch(msg){
       replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
     }
     if(save[sender]){
-    replier.reply(sender+" 님의 정보입니다\n\n❤ 체력: "+save[sender]["health"]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡 무기: "+save[sender]["무기"] ? save[sender]["무기"] : "없음"+"\n🧨 무기 강화수치: "+save[sender]["강수"]);
+    replier.reply(sender+" 님의 정보입니다\n\n❤ 체력: "+save[sender]["health"]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡 무기: "+(save[sender]["무기"] ? save[sender]["무기"] : "없음")+"\n🧨 무기 강화수치: "+save[sender]["강수"]);
     }
     break;
     
