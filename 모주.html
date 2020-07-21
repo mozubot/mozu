@@ -8,8 +8,8 @@ if( !FileStream.read( '/sdcard/RPG.json' ) ) {
 const save = JSON.parse( FileStream.read( '/sdcard/RPG.json' ) );
 
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
-switch(msg){
 try{
+switch(msg){
 	
     case '네임':
     if(check){
