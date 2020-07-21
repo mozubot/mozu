@@ -87,8 +87,7 @@ switch(msg){
     break;
     
     case '세이브':
-    if(sender == 예린)
-    if(sender == 하순모주){
+    if(sender == 예린 || sender == 하순모주){
     FileStream.write('/sdcard/RPG.json', JSON.stringify(save));
     }
     replier.reply("세이브 완료");
