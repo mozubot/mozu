@@ -1,15 +1,22 @@
 <pre>
 check = true;
 let blank = "\u200b".repeat(500);
- 
+let lastSave = new Date().getTime();
+
 if( !FileStream.read( '/sdcard/RPG.json' ) ) {
 	FileStream.write( '/sdcard/RPG.json', '{}' );
 }
 const save = JSON.parse( FileStream.read( '/sdcard/RPG.json' ) );
-
+const cur = new Date().getTime();
+if( cur - lastSave >= 3600000  ) {
+    FileStream.write('/sdcard/RPG.json', JSON.stringify(save));
+    lastSave = cur;
+    replier.reply("모주RPG는 협동 및 교류 게임입니다");
+}
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
 try{
 switch(msg){
+
 	
     case '네임':
     if(check){
@@ -77,6 +84,14 @@ switch(msg){
     if(save[sender]){
     replier.reply(sender+" 님의 정보입니다\n\n❤ 체력: "+save[sender]["health"]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡 무기: "+(save[sender]["무기"] ? save[sender]["무기"] : "없음")+"\n🧨 무기 강화수치: "+save[sender]["강수"]);
     }
+    break;
+    
+    case '세이브':
+    if(sender == 예린)
+    if(sender == 하순모주){
+    FileStream.write('/sdcard/RPG.json', JSON.stringify(save));
+    }
+    replier.reply("세이브 완료");
     break;
     
     case '강화':
