@@ -128,7 +128,7 @@ switch(msg){
 
     else{
         save[sender]["강수"] -= 2*save[sender]["강능"];
-          replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n😢강화에 실패하였습니다..\n\n[   🧨  "+d+"    - "+2*save[sender]["강능"]+"   ]");
+          replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n😢강화에 실패하였습니다..\n\n[   🧨  "+save[sender]["강수"]+"    - "+2*save[sender]["강능"]+"   ]");
     }
     
     if(save[sender]["강수"] <= 0){
