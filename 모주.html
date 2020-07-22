@@ -13,6 +13,9 @@ if( cur - lastSave >= 3600000  ) {
     lastSave = cur;
     replier.reply("모주RPG는 협동 및 교류 게임입니다");
 }
+    if(save["bell"] < 0){
+    save[sender]["bell"] == 0;
+    }
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
 try{
 switch(msg){
@@ -104,7 +107,7 @@ switch(msg){
       return;
     }
     if(save[sender]["bell"] >= 50 ){
-    save[sender]["bell"] = save[sender]["bell"] -= 50;
+    save[sender]["bell"] = save[sender]["bell"] - 50;
 	   replier.reply("[   🔔    - 50   ]\n\n"+sender+" 님이 강화를 시도하는 중 입니다\n\n[   소요시간:  3초   ]");
       check = false;
 	   java.lang.Thread.sleep(3000);
@@ -112,13 +115,15 @@ switch(msg){
     
     let c = Math.floor(Math.random() * 100);
     if(c <= 65){
-      save[sender]["강수"] += new save[sender]["강능"];
-        replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n✨강화에 성공하였습니다!\n\n[   🧨  "+save[sender]["강수"]+"    + "+save[sender]["강능"]+"   ]");
+      save[sender]["강수"] = save[sender]["강수"] + save[sender]["강능"];
+    let d = save[sender]["강수"] - save[sender]["강능"];
+        replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+save[sender]["강능"]+"   ]");
     }
     
       else if(c <= 73){
-        save[sender]["강수"] += 3*save[sender]["강능"];
-        replier.reply("[크리티컬]\n"+sender+" 님의 "+save[sender]["무기"]+"이(가)\n ✨강화에 성공하였습니다!\n\n[   🧨  "+save[sender]["강수"]+"    + "+3*save[sender]["강능"]+"   ]");
+      save[sender]["강수"] = save[sender]["강수"] + 3*save[sender]["강능"];
+    let d = save[sender]["강수"] - 3*save[sender]["강능"];
+        replier.reply("[크리티컬]\n"+sender+" 님의 "+save[sender]["무기"]+"이(가)\n ✨강화에 성공하였습니다!\n\n[   🧨  "+d+"    + "+3*save[sender]["강능"]+"   ]");
     }
     
     else if(c <= 75){
@@ -127,15 +132,16 @@ switch(msg){
     }
 
     else{
-        save[sender]["강수"] -= 2*save[sender]["강능"];
-          replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n😢강화에 실패하였습니다..\n\n[   🧨  "+save[sender]["강수"]+"    - "+2*save[sender]["강능"]+"   ]");
+        save[sender]["강수"] = save[sender]["강수"] - 2*save[sender]["강능"];
+    let d = save[sender]["강수"] + 2*save[sender]["강능"];
+          replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가)\n😢강화에 실패하였습니다..\n\n[   🧨  "+d+"    - "+2*save[sender]["강능"]+"   ]");
     }
     
     if(save[sender]["강수"] <= 0){
       replier.reply(sender+" 님의 "+save[sender]["무기"]+"이(가) 펑-💥하고 터졌습니다\n\n[   "+save[sender]["무기"]+"  파괴..   ]"); 
       save[sender]["강능"] = 1;
       save[sender]["강수"] = 1;
-      save[sender]["무기"] = save[sender]["무기"] = (save[sender]["무기"] ? save[sender]["무기"] : "없음" );
+      save[sender]["무기"] = (save[sender]["무기"] ? save[sender]["무기"] : "없음" );
      }
    }
    }
@@ -157,11 +163,7 @@ switch(msg){
      }
     
    if(save[sender]){
-   if(save[sender]["무기"] == "🍃지푸라기" ||
-      save[sender]["무기"] == "🌿나뭇가지" ||
-      save[sender]["무기"] == "🥢다듬은 나무젓가락" ||
-      save[sender]["무기"] == "🎋대나무조각" ||
-      save[sender]["무기"] == "🎍대나무조각상"){
+   if(!save[sender]["무기"] == undefined) {
      let c = Math.floor(Math.random() * 100)
    if(c <= 90){
      save[sender]["bell"] = save[sender]["bell"] + 15;
@@ -182,10 +184,8 @@ switch(msg){
      }
     
    if(save[sender]){
-   if( save[sender]["무기"] == "🌿나뭇가지" ||
-      save[sender]["무기"] == "🥢다듬은 나무젓가락" ||
-      save[sender]["무기"] == "🎋대나무조각" ||
-      save[sender]["무기"] == "🎍대나무조각상"){
+   if( !save[sender]["무기"] == undefined ||
+       save[sender]["무기"] == "🍃지푸라기"){
      let c = Math.floor(Math.random() * 100)
    if(c <= 90){
      save[sender]["bell"] = save[sender]["bell"] + 30;
