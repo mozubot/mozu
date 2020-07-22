@@ -6,18 +6,16 @@ if( !FileStream.read( '/sdcard/RPG.json' ) ) {
 	FileStream.write( '/sdcard/RPG.json', '{}' );
 }
 const save = JSON.parse( FileStream.read( '/sdcard/RPG.json' ) );
-function response( room, msg, sender, isGroupChat, replier, imageDB ) {
-try{
-const cur = new Date().getTime();
+function response( room, msg, sender, isGroupChat, replier, imageDB ) {const cur = new Date().getTime();
       if( cur - lastSave >= 3600000 ) {
       FileStream.write('/sdcard/RPG.json', JSON.stringify(save));
       lastSave = cur;
       replier.reply("모주RPG는 협동 및 교류 게임입니다");
       }
-      
+try{      
 const id = java.lang.String(imageDB.getProfileImage()).hashCode();
       if( save[sender] && save[sender].id != id ) {
-        replier.reply(sender+" 님의 닉네임은 이미 존재하는 닉네임입니다\n다른 닉네임으로 다시 시도해주세요");
+        replier.reply(sender+" 는(은) 이미 존재하는 닉네임입니다\n다른 닉네임으로 회원가입을 시도해주세요");
         return;
       }
 switch(msg){
