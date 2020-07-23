@@ -2,69 +2,28 @@
 check = true;
 let blank = "\u200b".repeat(500);
 let lastSave = new Date().getTime();
-if( !FileStream.read( '/sdcard/RPG.json' ) ) {
-	FileStream.write( '/sdcard/RPG.json', '{}' );
+const location = ['광장', '상점'];
+let 물건 = ['크릴새우미끼', '수제경단미끼'];
+if( !FileStream.read( '/sdcard/모주봇/RPG.json' ) ) {
+	FileStream.write( '/sdcard/모주봇/RPG.json', '{}' );
 }
-const save = JSON.parse( FileStream.read( '/sdcard/RPG.json' ) );
-function response( room, msg, sender, isGroupChat, replier, imageDB ) {const cur = new Date().getTime();
+const save = JSON.parse( FileStream.read( '/sdcard/모주봇/RPG.json' ) );
+function response( room, msg, sender, isGroupChat, replier, imageDB ) {
+const cur = new Date().getTime();
       if( cur - lastSave >= 3600000 ) {
-      FileStream.write('/sdcard/RPG.json', JSON.stringify(save));
+      FileStream.write('/sdcard/모주봇/RPG.json', JSON.stringify(save));
       lastSave = cur;
       replier.reply("모주RPG는 협동 및 교류 게임입니다");
       }
-try{      
+      
 const id = java.lang.String(imageDB.getProfileImage()).hashCode();
       if( save[sender] && save[sender].id != id ) {
-        replier.reply(sender+" 는(은) 이미 존재하는 닉네임입니다\n다른 닉네임으로 회원가입을 시도해주세요");
+        replier.reply(sender+" 는(은) 이미 존재하는 닉네임입니다");
+        replier.reply("ㆍ이 게임이 처음이시라면\n다른 닉네임으로 회원가입을 시도해주세요\n\nㆍ이 게임이 처음이 아니시라면\n하순모주 님한테 개인톡으로 문의하세요");
         return;
       }
+  
 switch(msg){
- 
-    case '네임':
-    if(check){
-    check = false;
-    replier.reply("은 B임??");
-    java.lang.Thread.sleep(3000);
-    replier.reply("설마.. 이해 못했니?");
-    java.lang.Thread.sleep(2000);
-    replier.reply("비임이냐구 바부야!🤦‍♀️");
-    java.lang.Thread.sleep(500);
-    replier.reply("ㅁ...미,.ㅁ미안🙄");
-    check = true;
-    }
-    break;
-    
-    case '고래':
-    if(check){
-    check = false;
-    replier.reply("는 흰수염!!🎅");
-    java.lang.Thread.sleep(750);
-    replier.reply("헤헿🐳🐳");
-    java.lang.Thread.sleep(2500);
-    replier.reply("..뀨");
-    check = true;
-    }
-    break;
-    
-    case '모주야':
-    if(check){
-    check = false;
-    if(sender == "ㅈㅇ"){
-    replier.reply("༼  •᷅  ͟ʖ •᷅   ༽...");
-    java.lang.Thread.sleep(1500);
-    replier.reply("그게 누구죠");
-    }else if(sender == "예린"){
-    replier.reply("네, "+sender+" 주인님. 절 부르셨나요?🤗");
-    }else if(sender == "림"){
-    replier.reply("오오 고래다!!");
-    java.lang.Thread.sleep(1500);
-    replier.reply("고~~~~~뤠?");
-    }else{
-    replier.reply("반가워요, "+sender+" 님!☺️");
-    }
-    check = true;
-    }
-    break;
   
     case '회원가입':
     if(save[sender]){
@@ -72,7 +31,8 @@ switch(msg){
     return;
     }
     if(!save[sender]){
-      save[sender] = {"id" : java.lang.String(imageDB.getProfileImage()).hashCode(), "bell" : 100, "health" : 10, "강수": 1, "강능": 1
+      save[sender] = {"id" : java.lang.String(imageDB.getProfileImage()).hashCode(), "bell" : 100, "강수": 1, "강능": 1,
+                      "location" : location[0], "hp" : [1000, 1000]
                       };
       replier.reply("회원가입 완료");
     } 
@@ -83,16 +43,27 @@ switch(msg){
       replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
     }
     if(save[sender]){
-    replier.reply(sender+" 님의 정보입니다\n\n❤ 체력: "+save[sender]["health"]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡 무기: "+(save[sender]["무기"] ? save[sender]["무기"] : "없음")+"\n🧨 무기 강화수치: "+save[sender]["강수"]);
+    replier.reply(sender+" 님의 정보입니다\n\n장소: "+save[sender]["location"]+"\n\n❤ 체력: "+save[sender]["hp[0]"]+"/"+save[sender]["hp[1]"]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡 무기: "+(save[sender]["무기"] ? save[sender]["무기"] : "없음")+"\n🧨 무기 강화수치: "+save[sender]["강수"]);
     }
     break;
     
     case '세이브':
-    if(id == "573391179"){
-    FileStream.write('/sdcard/RPG.json', JSON.stringify(save));
+    FileStream.write('/sdcard/모주봇/RPG.json', JSON.stringify(save));
     replier.reply("세이브 완료");
+    break;
+    }
+    
+    let query = msg.substring( msg.split(' ')[0].length + 1 );
+    switch( msg.split(' ')[0] ) {
+    case '이동':
+    if( location.indexOf(query) != -1 ) {
+    save[sender]["location"] = query;
+    replier.reply(query+"(으)로 이동합니다");
     }
     break;
+    }
+    
+  switch(msg){
     
     case '강화':
     if(!save[sender]){
@@ -271,8 +242,55 @@ switch(msg){
       }
      }
      break;
+     
+     
+     case '네임':
+    if(check){
+    check = false;
+    replier.reply("은 B임??");
+    java.lang.Thread.sleep(3000);
+    replier.reply("설마.. 이해 못했니?");
+    java.lang.Thread.sleep(2000);
+    replier.reply("비임이냐구 바부야!🤦‍♀️");
+    java.lang.Thread.sleep(500);
+    replier.reply("ㅁ...미,.ㅁ미안🙄");
+    check = true;
+    }
+    break;
+    
+    case '고래':
+    if(check){
+    check = false;
+    replier.reply("는 흰수염!!🎅");
+    java.lang.Thread.sleep(750);
+    replier.reply("헤헿🐳🐳");
+    java.lang.Thread.sleep(2500);
+    replier.reply("..뀨");
+    check = true;
+    }
+    break;
+    
+    case '모주야':
+    if(check){
+    check = false;
+    if(sender == "ㅈㅇ"){
+    replier.reply("༼  •᷅  ͟ʖ •᷅   ༽...");
+    java.lang.Thread.sleep(1500);
+    replier.reply("그게 누구죠");
+    }else if(sender == "예린"){
+    replier.reply("네, "+sender+" 주인님. 절 부르셨나요?🤗");
+    }else if(sender == "림"){
+    replier.reply("오오 고래다!!");
+    java.lang.Thread.sleep(1500);
+    replier.reply("고~~~~~뤠?");
+    }else{
+    replier.reply("반가워요, "+sender+" 님!☺️");
+    }
+    check = true;
+    }
+    break;
 }
-       } catch(e) {
+     } catch(e) {
         Api.replyRoom("모주봇", e+"\n줄 번호: #"+e.lineNumber);
     }
 }
