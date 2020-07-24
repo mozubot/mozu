@@ -53,7 +53,7 @@ if( !FileStream.read( '/sdcard/모주봇/RPG.json' ) ) {
 }
 const save = JSON.parse( FileStream.read( '/sdcard/모주봇/RPG.json' ) );
 function response( room, msg, sender, isGroupChat, replier, imageDB ) {
-
+try{
 const cur = new Date().getTime();
       if( cur - lastSave >= 3600000 ) {
       FileStream.write('/sdcard/모주봇/RPG.json', JSON.stringify(save));
