@@ -109,13 +109,7 @@ switch( msg.split(' ')[0] ) {
     replier.reply(query+"(으)로 이동합니다");
     }
     break;
-    
-    case '구매':
-    if( 판매물품.indexOf(query) != -1 ) {
-    save[sender]["판매물품"] = query;
-    }
-    break;
-    
+
   if(save[sender] && save[sender]["location"] == "광장"){
      let dis = cur - save[sender]["lastT"];
    if( dis > 6000 ) {
@@ -127,7 +121,7 @@ switch( msg.split(' ')[0] ) {
          save[sender]["hp"][0] = save[sender]["hp"][1];
    }
   }
-}
+ }
   }  catch (e) {
   Api.replyRoom("모주봇", e + "\n줄 번호: #" + e.lineNumber);
   }
