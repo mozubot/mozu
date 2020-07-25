@@ -103,11 +103,11 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
     }
     if (save[sender] && save[sender]["location"] == "광장") {
       let dis = cur - save[sender]["lastT"];
-      if (dis > 10000) {
-        const count = Math.floor(dis / 10000);
-        save[sender]["lastT"] += 10000 * count;
+      if (dis > 5000) {
+        const count = Math.floor(dis / 5000);
+        save[sender]["lastT"] += 5000 * count;
         if (save[sender]["hp"][0] < save[sender]["hp"][1]) 
-          save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1] / 100);
+          save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1] / 500);
         if (save[sender]["hp"][0] > save[sender]["hp"][1]) 
           save[sender]["hp"][0] = save[sender]["hp"][1];
       }
