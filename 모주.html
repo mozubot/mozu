@@ -118,9 +118,9 @@ switch( msg.split(' ')[0] ) {
     
   if(save[sender] && save[sender]["location"] == "광장"){
      let dis = cur - save[sender]["lastT"];
-   if( dis > 60000 ) {
-      const count = Math.floor(dis / 60000);
-      save[sender]["lastT"] += 60000 * count;
+   if( dis > 6000 ) {
+      const count = Math.floor(dis / 6000);
+      save[sender]["lastT"] += 6000 * count;
       if( save[sender]["hp"][0] < save[sender]["hp"][1] )
          save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1]/100);
       if( save[sender]["hp"][0] > save[sender]["hp"][1] )
