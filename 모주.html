@@ -3,6 +3,7 @@ check = true;
 let blank = "​".repeat(500);
 let lastSave = new Date().getTime();
 const location = ['광장', '상점', '작업장', '광산'];
+const cur = new Date().getTime();
 let 곡괭이 = ['나무 곡괭이', '철 곡괭이', '은 곡괭이', '다이아 곡괭이'];
 let 판매물품 = {
   "낚싯대": [{
@@ -42,7 +43,6 @@ if (!FileStream.read('/sdcard/모주봇/RPG.json')) {
 const save = JSON.parse(FileStream.read('/sdcard/모주봇/RPG.json'));
 function response(room, msg, sender, isGroupChat, replier, imageDB) {
   try {
-    const cur = new Date().getTime();
     if (cur - lastSave >= 3600000) {
       FileStream.write('/sdcard/모주봇/RPG.json', JSON.stringify(save));
       lastSave = cur;
@@ -69,7 +69,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
   "강수": 1, 
   "강능": 1, 
   "location": location[0], 
-  "hp": [1000, 1000], 
+  "hp": [100, 100], 
   "lastT": new Date().getTime()};
           replier.reply("회원가입 완료");
         }
@@ -107,7 +107,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
         const count = Math.floor(dis / 5000);
         save[sender]["lastT"] += 5000 * count;
         if (save[sender]["hp"][0] < save[sender]["hp"][1]) 
-          save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1] / 500);
+          save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1] / 100);
         if (save[sender]["hp"][0] > save[sender]["hp"][1]) 
           save[sender]["hp"][0] = save[sender]["hp"][1];
       }
@@ -116,4 +116,5 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
   Api.replyRoom("모주봇", e + "\n줄 번호: #" + e.lineNumber);
   }
 }
+
 </pre>
