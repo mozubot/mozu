@@ -1,126 +1,117 @@
 <pre>
 check = true;
-let blank = "\u200b".repeat(500);
+let blank = "​".repeat(500);
 let lastSave = new Date().getTime();
 const location = ['광장', '상점', '작업장', '광산'];
-let 곡괭이 = ['나무 곡괭이','철 곡괭이', '은 곡괭이', '다이아 곡괭이']
+let 곡괭이 = ['나무 곡괭이', '철 곡괭이', '은 곡괭이', '다이아 곡괭이'];
 let 판매물품 = {
-"낚싯대": 
- [{
-   "이름": "장난감 낚싯대",
-   "가격": "5000",
-   "내구도": "10",
-   "티어": [3, 4],
-   "숙련도": [],
-   "체력": []
- },
- {
-   "이름": "철 낚싯대",
-   "가격": "70000",
-   "내구도": "30",
-   "티어": [2, 3],
-   "숙련도": [],
-   "체력": []
- },
- {
-   "이름": "동 낚싯대",
-   "가격": "400000",
-   "내구도": "100",
-   "티어": [1, 2, 3],
-   "숙련도": [],
-   "체력": []
- },
- {
-   "이름": "은 낚싯대",
-   "가격": "1500000",
-   "내구도": "200",
-   "티어": [1, 2],
-   "숙련도": [],
-   "체력": []
- },
- {
-   "이름": "금 낚싯대",
-   "가격": "5000000",
-   "내구도": "200",
-   "티어": [1, 2],
-   "숙련도": [],
-   "체력": []
- }]
+  "낚싯대": [{
+  "이름": "장난감 낚싯대", 
+  "가격": "5000", 
+  "내구도": "10", 
+  "티어": [3, 4], 
+  "숙련도": [], 
+  "체력": []}, {
+  "이름": "철 낚싯대", 
+  "가격": "70000", 
+  "내구도": "30", 
+  "티어": [2, 3], 
+  "숙련도": [], 
+  "체력": []}, {
+  "이름": "동 낚싯대", 
+  "가격": "400000", 
+  "내구도": "100", 
+  "티어": [1, 2, 3], 
+  "숙련도": [], 
+  "체력": []}, {
+  "이름": "은 낚싯대", 
+  "가격": "1500000", 
+  "내구도": "200", 
+  "티어": [1, 2], 
+  "숙련도": [], 
+  "체력": []}, {
+  "이름": "금 낚싯대", 
+  "가격": "5000000", 
+  "내구도": "200", 
+  "티어": [1, 2], 
+  "숙련도": [], 
+  "체력": []}]};
+if (!FileStream.read('/sdcard/모주봇/RPG.json')) {
+  FileStream.write('/sdcard/모주봇/RPG.json', '{}');
 }
-
-if( !FileStream.read( '/sdcard/모주봇/RPG.json' ) ) {
-	FileStream.write( '/sdcard/모주봇/RPG.json', '{}' );
-}
-const save = JSON.parse( FileStream.read( '/sdcard/모주봇/RPG.json' ) );
-function response( room, msg, sender, isGroupChat, replier, imageDB ) {
-try{
-const cur = new Date().getTime();
-      if( cur - lastSave >= 3600000 ) {
+const save = JSON.parse(FileStream.read('/sdcard/모주봇/RPG.json'));
+function response(room, msg, sender, isGroupChat, replier, imageDB) {
+  try {
+    const cur = new Date().getTime();
+    if (cur - lastSave >= 3600000) {
       FileStream.write('/sdcard/모주봇/RPG.json', JSON.stringify(save));
       lastSave = cur;
       replier.reply("모주RPG는 협동 및 교류 게임입니다");
-      }
-      
-      if(msg == "회원가입"){
-const id = java.lang.String(imageDB.getProfileImage()).hashCode();
-      if( save[sender] && save[sender].id != id ) {
-        replier.reply(sender+" 는(은) 이미 존재하는 닉네임입니다");
+    }
+    if (msg == "회원가입") {
+      const id = java.lang.String(imageDB.getProfileImage()).hashCode();
+      if (save[sender] && save[sender].id != id) {
+        replier.reply(sender + " 는(은) 이미 존재하는 닉네임입니다");
         replier.reply("ㆍ이 게임이 처음이시라면\n다른 닉네임으로 회원가입을 시도해주세요\n\nㆍ이 게임이 처음이 아니시라면\n하순모주 님한테 개인톡으로 문의하세요");
         return;
       }
+    }
+    switch (msg) {
+      case '회원가입':
+        if (save[sender]) {
+          replier.reply(sender + " 님은 이미 회원가입을 하셨습니다.");
+          return;
+        }
+        if (!save[sender]) {
+          save[sender] = {
+  "id": java.lang.String(imageDB.getProfileImage()).hashCode(), 
+  "bell": 100, 
+  "강수": 1, 
+  "강능": 1, 
+  "location": location[0], 
+  "hp": [1000, 1000], 
+  "lastT": new Date().getTime()};
+          replier.reply("회원가입 완료");
+        }
+        break;
+      case '정보':
+        if (!save[sender]) {
+          replier.reply(sender + " 님, 회원가입을 먼저 해주세요");
+        }
+        if (save[sender]) {
+          replier.reply(sender + " 님의 정보입니다\n\n장소: " + save[sender]["location"] + "\n\n❤ 체력: " + save[sender]["hp"][0] + "/" + save[sender]["hp"][1] + "\n🔔 벨: " + save[sender]["bell"] + "\n\n🗡 무기: " + (save[sender]["무기"] ? save[sender]["무기"] : "없음") + "\n🧨 무기 강화수치: " + save[sender]["강수"]);
+        }
+        break;
+      case '세이브':
+        FileStream.write('/sdcard/모주봇/RPG.json', JSON.stringify(save));
+        replier.reply("세이브 완료");
+        break;
+    }
+    let query = msg.substring(msg.split(' ')[0].length + 1);
+    switch (msg.split(' ')[0]) {
+      case '이동':
+        if (location.indexOf(query) != -1) {
+          save[sender]["location"] = query;
+          replier.reply(query + "(으)로 이동합니다");
+        }
+        break;
+      case '구매':
+        if (판매물품.indexOf(query) != -1) {
+          save[sender]["location"] = query;
+        }
+        break;
+    }
+    if (save[sender] && save[sender]["location"] == "광장") {
+      let dis = cur - save[sender]["lastT"];
+      if (dis > 10000) {
+        const count = Math.floor(dis / 10000);
+        save[sender]["lastT"] += 10000 * count;
+        if (save[sender]["hp"][0] < save[sender]["hp"][1]) 
+          save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1] / 100);
+        if (save[sender]["hp"][0] > save[sender]["hp"][1]) 
+          save[sender]["hp"][0] = save[sender]["hp"][1];
       }
-  
-switch(msg){
-  
-    case '회원가입':
-    if(save[sender]){
-      replier.reply(sender+" 님은 이미 회원가입을 하셨습니다.");
-    return;
     }
-    if(!save[sender]){
-      save[sender] = {"id" : java.lang.String(imageDB.getProfileImage()).hashCode(), "bell" : 100, "강수": 1, "강능": 1,
-                      "location" : location[0], "hp" : [1000, 1000],
-                      "lastT" : new Date().getTime()
-                      };
-      replier.reply("회원가입 완료");
-    } 
-    break;
- 
-    case '정보':
-    if(!save[sender]){
-      replier.reply(sender+" 님, 회원가입을 먼저 해주세요");
-    }
-    if(save[sender]){
-    replier.reply(sender+" 님의 정보입니다\n\n장소: "+save[sender]["location"]+"\n\n❤ 체력: "+save[sender]["hp"][0]+"/"+save[sender]["hp"][1]+"\n🔔 벨: "+save[sender]["bell"]+"\n\n🗡 무기: "+(save[sender]["무기"] ? save[sender]["무기"] : "없음")+"\n🧨 무기 강화수치: "+save[sender]["강수"]);
-    }
-    break;
-    
-    case '세이브':
-    FileStream.write('/sdcard/모주봇/RPG.json', JSON.stringify(save));
-    replier.reply("세이브 완료");
-    break;
-}
-    
-let query = msg.substring( msg.split(' ')[0].length + 1 );
-switch( msg.split(' ')[0] ) {
-    case '이동':
-    if( location.indexOf(query) != -1 ) {
-    save[sender]["location"] = query;
-    replier.reply(query+"(으)로 이동합니다");
-    }
-    break;
-
-  if(save[sender] && save[sender]["location"] == "광장"){
-     let dis = cur - save[sender]["lastT"];
-   if( dis > 6000 ) {
-      const count = Math.floor(dis / 6000);
-      save[sender]["lastT"] += 6000 * count;
-      if( save[sender]["hp"][0] < save[sender]["hp"][1] )
-         save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1]/100);
-      if( save[sender]["hp"][0] > save[sender]["hp"][1] )
-         save[sender]["hp"][0] = save[sender]["hp"][1];
-   }
-  }
   }  catch (e) {
   Api.replyRoom("모주봇", e + "\n줄 번호: #" + e.lineNumber);
   }
