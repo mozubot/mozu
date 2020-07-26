@@ -125,9 +125,9 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
     }
     if (save[sender] && save[sender]["location"] == "광장") {
       let dis = cur - save[sender]["lastT"];
-      if (dis > 12000) {
-        const count = Math.floor(dis / 12000);
-        save[sender]["lastT"] += 12000 * count;
+      if (dis > 30000) {
+        const count = Math.floor(dis / 30000);
+        save[sender]["lastT"] += 30000 * count;
         if (save[sender]["hp"][0] < save[sender]["hp"][1]) 
           save[sender]["hp"][0] += Math.floor(save[sender]["hp"][1] / 100);
         if (save[sender]["hp"][0] > save[sender]["hp"][1]) 
