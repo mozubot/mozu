@@ -101,10 +101,10 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
         
       case '인벤': 
       replier.reply("인벤토리"+blank+"\n\n");
-         for( i in save[sender]["inventory"] ) {
-            if( i % 10 == 0 )  
-            replier.reply("- "+i+" -\n");
-            replier.reply(save[sender]["inventory"][i][0].split("*")[0]+" x"+save[sender]["inventory"][i].length+"\n");
+         for( inv in save[sender]["inventory"] ) {
+            if( inv % 10 == 0 )  
+            replier.reply("- "+inv+" -\n");
+            replier.reply(save[sender]["inventory"][inv][0].split("*")[0]+" x"+save[sender]["inventory"][inv].length+"\n");
          }
       break;
     }
@@ -138,4 +138,5 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
   Api.replyRoom("모주봇", e + "\n줄 번호: #" + e.lineNumber);
   }
 }
+
 </pre>
