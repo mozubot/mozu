@@ -81,11 +81,19 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
   "강능": 1, 
   "location": location[0], 
   "hp": [100, 100], 
-  "lastT": new Date().getTime(),
-  "inventory" : [[]]};
+  "lastT": new Date().getTime()};
           replier.reply("회원가입 완료");
         }
         break;
+        
+function Player(id) {
+this.id = id;
+this.inventory = [[{"이름":"장난감 낚싯대", "가격": "5000", "내구도": "10", "티어": [3, 4], "숙련도": [], "체력": []}]];
+this.equip = {"모자":{}, "상의":{}, "하의":{}, "신발":{}, "무기":{} };
+
+   return this;
+}
+        
       case '정보':
         if (!save[sender]) {
           replier.reply(sender + " 님, 회원가입을 먼저 해주세요");
@@ -101,10 +109,10 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
         
       case '인벤': 
       replier.reply("인벤토리"+blank+"\n\n");
-         for( inv in save[sender]["inventory"] ) {
-            if( inv % 10 == 0 )  
-            replier.reply("- "+inv+" -\n");
-            replier.reply(save[sender]["inventory"][inv][0].split("*")[0]+" x"+save[sender]["inventory"][inv].length+"\n");
+         for( i in p.inventory ) {
+            if( i % 10 == 0 )  
+            replier.reply("- "+i+" -\n");
+            replier.reply(p.inventory[i][0].split("*")[0]+" x"+p.inventory[i].length+"\n");
          }
       break;
     }
@@ -138,5 +146,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
   Api.replyRoom("모주봇", e + "\n줄 번호: #" + e.lineNumber);
   }
 }
+
 
 </pre>
