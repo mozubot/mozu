@@ -1,4 +1,13 @@
 <pre>
+function Player(id) {
+this.id = id;
+this.inventory = [[{"이름":"장난감 낚싯대", "가격": "5000", "내구도": "10", "티어": [3, 4], "숙련도": [], "체력": []}]];
+this.equip = {"모자":{}, "상의":{}, "하의":{}, "신발":{}, "무기":{} };
+
+   return this;
+}
+
+
 check = true;
 let blank = "​".repeat(500);
 let lastSave = new Date().getTime();
@@ -86,14 +95,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
         }
         break;
         
-function Player(id) {
-this.id = id;
-this.inventory = [[{"이름":"장난감 낚싯대", "가격": "5000", "내구도": "10", "티어": [3, 4], "숙련도": [], "체력": []}]];
-this.equip = {"모자":{}, "상의":{}, "하의":{}, "신발":{}, "무기":{} };
-
-   return this;
-}
-        
       case '정보':
         if (!save[sender]) {
           replier.reply(sender + " 님, 회원가입을 먼저 해주세요");
@@ -146,6 +147,4 @@ this.equip = {"모자":{}, "상의":{}, "하의":{}, "신발":{}, "무기":{} };
   Api.replyRoom("모주봇", e + "\n줄 번호: #" + e.lineNumber);
   }
 }
-
-
 </pre>
