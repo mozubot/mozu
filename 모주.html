@@ -1,71 +1,9 @@
 <pre>
-importClass(org.jsoup.Jsoup);
-
-/*
-  rooms : 봇이 입퇴장을 감지할 방의 목록 배열입니다.
-
-  ['방 이름', '방 아이디', 0] 이 한 요소 안에 들어갑니다.
-
-  방 이름 : 해당 방의 이름입니다.
-  방 아이디 : 카카오톡 오픈채팅방의 링크는 https://open.kakao.com/o/id 의 형식으로 이루어져 있습니다. 여기서 방 아이디는 왼쪽 링크 예시에서 id 부분을 뜻합니다.
-*/
-
-const rooms = [
-  ['🌳 갓언노운 숲', 'g5FRjE9b', 0]
-];
-
-// entrance : 입장 감지 후 메시지를 보낼 지, 보내지 않을 지 결정합니다. true일 경우 메시지를 보내고, false일 경우 메시지를 보내지 않습니다.
-const entrance = true;
-
-// walkout : 퇴장 감지 후 메시지를 보낼 지, 보내지 않을 지 결정합니다. true일 경우 메시지를 보내고, false일 경우 메시지를 보내지 않습니다.
-const walkout = true;
-
-// showChange : 인원수 변동을 표시할 지, 표시하지 않을 지 결정합니다. true일 경우 표시하고, false일 경우 표시하지 않습니다.
-const showChange = true;
-
-// e_msg : 입장 감지 후 보낼 메시지입니다.
-const e_msg = '우왕!!! 사람이다!😍';
-
-// w_msg : 퇴장 감지 후 보낼 메시지입니다.
-const w_msg = '잘가랏 난쁜자식!..ㅠㅜ';
-
-// getRoomInfo : 오픈채팅방 정보를 가져오는 함수입니다.
-function getRoomInfo (id) {
-  function response(room, msg, sender, isGroupChat, replier, imageDB) {
-    if(msg =="방정보")
-     return JSON.parse(Jsoup.connect('https://api.develope.kr/search/room?room=https://open.kakao.com/o/' + id).ignoreContentType(true).get().text()).result;
+function response(room, msg, sender, isGroupChat, replier, imageDB) {
+  if(msg.startsWith("방정보 ")){
+    let a=msg.substr(4)
+    const info = JSON.parse(org.jsoup.Jsoup.connect('https://open.kakao.com/c/search/unified?q=' + encodeURI('a')).ignoreContentType(true).get().text()).result;
+replier.reply("방이름: " + info.items[0] + "\n링크: " + info.lu + '\n\n방장: ' + info.nn + "\n\n인원: " + info.mcnt + "\n좋아요: " + info.rc);
   }
 }
-
-// enter : 입퇴장을 감지하고 처리하는 함수입니다.
-function enter (e, w, s) {
-     for (let i in rooms) {
-       let inf = getRoomInfo(rooms[i][1]);
-       if (rooms[i][2] == 0) {
-            rooms[i][2] = inf.headcount;
-            return;
-       }
-       const e_change = s ? rooms[i][2] + ' ↗️ ' + inf.headcount + '\n' : '';
-       const w_change = s ? rooms[i][2] + ' ↘️ ' + inf.headcount + '\n' : '';
-       if (inf.headcount > rooms[i][2] && e) {
-            Api.replyRoom(rooms[i][0], e_msg + '\n\n' + e_change + '들낙하지마욧 ㅡㅡ');
-            rooms[i][2] = inf.headcount;
-            return;
-       }
-       if (inf.headcount < rooms[i][2] && w) {
-            Api.replyRoom(rooms[i][0], w_msg + '\n\n' + w_change + '에잇..퉤 다신 들어오지마!!');
-            rooms[i][2] = inf.headcount;
-            return;
-       }
-     }
-}
-
-const loop = setInterval(function () {
-     try {
-       enter(entrance, walkout, showChange);
-     }
-     catch (err) {
-       Log.d(err);
-     }
-}, 750);
 </pre>
