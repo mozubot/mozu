@@ -31,8 +31,10 @@ const w_msg = '잘가랏 난쁜자식!..ㅠㅜ';
 
 // getRoomInfo : 오픈채팅방 정보를 가져오는 함수입니다.
 function getRoomInfo (id) {
-  if(msg == "방정보!")
+  function response(room, msg, sender, isGroupChat, replier, imageDB) {
+    if(msg =="방정보")
      return JSON.parse(Jsoup.connect('https://api.develope.kr/search/room?room=https://open.kakao.com/o/' + id).ignoreContentType(true).get().text()).result;
+  }
 }
 
 // enter : 입퇴장을 감지하고 처리하는 함수입니다.
@@ -66,3 +68,4 @@ const loop = setInterval(function () {
        Log.d(err);
      }
 }, 750);
+</pre>
