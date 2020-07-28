@@ -1,9 +1,13 @@
 <pre>
 function response(room, msg, sender, isGroupChat, replier, imageDB) {
+try{
   if(msg.startsWith("방정보 ")){
-    let a=msg.substr(4)
+    let a = msg.substr(4)
     const info = JSON.parse(org.jsoup.Jsoup.connect('https://open.kakao.com/c/search/unified?q=' + encodeURI('a')).ignoreContentType(true).get().text()).result;
-replier.reply("방이름: " + info.items[0] + "\n링크: " + info.lu + '\n\n방장: ' + info.nn + "\n\n인원: " + info.mcnt + "\n좋아요: " + info.rc);
+    replier.reply("방이름: " + info.items[0].ln + "\n링크: " + info.items[2].lu + '\n\n방장: ' + info.items[7].nn + "\n\n인원: " + info.items[6].mcnt + "\n좋아요: " + info.items[11].rc);
   }
+}  catch (e) {
+     Api.replyRoom("모주봇", e + "\n줄 번호: #" + e.lineNumber);
+   }
 }
 </pre>
